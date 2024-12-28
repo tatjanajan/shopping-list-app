@@ -104,6 +104,14 @@ function onClickItem(e) {
     }
 }
 
+function onButtonKeypress(e) {
+    if (e.key === "Enter" || e.key === " ") {
+        if (e.target.classList.contains('remove-item')) {
+            removeItem(e.target.parentElement);
+        }
+    }
+}
+
 function checkIfItemExists(item) {
     const itemsFromStorage = getItemsFromStorage();
 
@@ -194,6 +202,7 @@ function init() {
     // Event listeners
     itemForm.addEventListener('submit', onAddItemSubmit);
     itemList.addEventListener('click', onClickItem);
+    itemList.addEventListener('keypress', onButtonKeypress);
     clearBtn.addEventListener('click', clearItems);
     itemFilter.addEventListener('input', filterItems);
     document.addEventListener('DOMContentLoaded', displayItems);
