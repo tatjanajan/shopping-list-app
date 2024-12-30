@@ -52,6 +52,7 @@ function onAddItemSubmit(e) {
 function addItemToDOM(item) {
     // Create list item
     const li = document.createElement('li');
+    li.setAttribute('tabindex', 0);
     li.appendChild(document.createTextNode(item));
 
     const button = createButton('remove-item btn-link text-red');
@@ -104,10 +105,16 @@ function onClickItem(e) {
     }
 }
 
-function onButtonKeypress(e) {
-    if (e.key === "Enter" || e.key === " ") {
-        if (e.target.classList.contains('remove-item')) {
+function onKeypressItem(e) {
+
+    if (e.target.classList.contains('remove-item')) {
+        if (e.key === "Enter" || e.key === " ") {
             removeItem(e.target.parentElement);
+        }
+    } else {
+        if (e.key === "Enter") {
+            setItemToEdit(e.target);
+            itemInput.focus();
         }
     }
 }
@@ -202,7 +209,7 @@ function init() {
     // Event listeners
     itemForm.addEventListener('submit', onAddItemSubmit);
     itemList.addEventListener('click', onClickItem);
-    itemList.addEventListener('keypress', onButtonKeypress);
+    itemList.addEventListener('keypress', onKeypressItem);
     clearBtn.addEventListener('click', clearItems);
     itemFilter.addEventListener('input', filterItems);
     document.addEventListener('DOMContentLoaded', displayItems);
